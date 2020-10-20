@@ -45,5 +45,80 @@ Secret message is:
 ### Exercise 1.5
 
 ```
-docker run -it ubuntu sh -c 'apt-get update; apt-get install curl; echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website;'
+$ docker run -it ubuntu sh -c 'apt-get update; apt-get install curl; echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website;'
+```
+
+### Exercise 1.6
+
+Dockerfile
+```
+FROM devopsdockeruh/overwrite_cmd_exercise
+CMD ["-c"]
+```
+
+Commands
+```
+$ docker build -t docker-clock .
+$ docker run docker-clock
+```
+
+### Exercise 1.7
+
+Dockerfile
+```
+FROM ubuntu:16.04 
+WORKDIR /mydir
+RUN apt-get update && apt-get install -y curl 
+COPY myscript.sh .
+CMD ./myscript.sh
+```
+
+Script file
+```
+#!/bin/sh
+echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website;
+```
+
+Commands
+```
+$ docker build -t curler .
+$ docker run --rm -it curler
+```
+
+Output
+```
+Input website:
+helsinki.fi
+Searching..
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="http://www.helsinki.fi/">here</a>.</p>
+</body></html>
+```
+
+### Exercise 1.8
+
+Commands
+```
+docker run -v $(pwd)/logs.txt:/usr/app/logs.txt devopsdockeruh/first_volume_exercise
+```
+
+Output
+```
+Tue, 20 Oct 2020 17:17:14 GMT
+Tue, 20 Oct 2020 17:17:17 GMT
+Tue, 20 Oct 2020 17:17:20 GMT
+Tue, 20 Oct 2020 17:17:23 GMT
+Secret message is:
+"Volume bind mount is easy"
+```
+
+### Exercise 1.8
+
+Commands
+```
+docker run -d -p 8000:80 devopsdockeruh/ports_exercise
 ```
