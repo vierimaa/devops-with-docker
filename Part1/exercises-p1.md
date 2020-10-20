@@ -116,7 +116,7 @@ Secret message is:
 "Volume bind mount is easy"
 ```
 
-### Exercise 1.8
+### Exercise 1.9
 
 Commands
 ```
