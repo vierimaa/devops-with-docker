@@ -103,7 +103,7 @@ Searching..
 
 Commands
 ```
-docker run -v $(pwd)/logs.txt:/usr/app/logs.txt devopsdockeruh/first_volume_exercise
+$ docker run -v $(pwd)/logs.txt:/usr/app/logs.txt devopsdockeruh/first_volume_exercise
 ```
 
 Output
@@ -120,5 +120,134 @@ Secret message is:
 
 Commands
 ```
-docker run -d -p 8000:80 devopsdockeruh/ports_exercise
+$ docker run -d -p 8000:80 devopsdockeruh/ports_exercise
+```
+
+### Exercise 1.10
+
+Dockerfile
+```
+FROM node:alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 5000
+CMD [ "npm", "start" ]
+```
+
+### Exercise 1.11
+
+Dockerfile
+```
+FROM node:alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 8000
+CMD [ "npm", "start" ]
+```
+
+Commands
+```
+$ docker build -t backend-example .
+$ docker run -v $(pwd)/logs.t:/usr/src/app/logs.txt -p 8000:8000 backend-example
+```
+
+logs.txt
+```
+10/20/2020, 7:40:02 PM: Connection received in root
+10/20/2020, 7:40:09 PM: Connection received in root
+```
+
+### Exercise 1.12
+
+Dockerfile frontend
+```
+FROM node:alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 5000
+CMD [ "npm", "start" ]
+```
+
+Dockerfile backend
+```
+FROM node:alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 8000
+CMD [ "npm", "start" ]
+```
+
+Commands
+```
+$ docker build -t frontend .
+$ docker build -t backend-example .
+$ docker run -p 5000:5000 -d frontend
+$ docker run -v $(pwd)/logs.txt:/usr/src/app/logs.txt -p 8000:8000 backend
+```
+
+### Exercise 1.13
+
+Dockerfile frontend
+```
+FROM openjdk:8-alpine
+EXPOSE 8080
+WORKDIR /app
+COPY . .
+RUN ./mvnw package
+CMD ["java", "-jar", "./target/docker-example-1.1.3.jar"]
+```
+
+Commands
+```
+$ docker build -t spring-example-project .    
+$ docker run -p 8080:8080 spring-example-project
+```
+
+### Exercise 1.14
+
+Dockerfile frontend
+```
+FROM ruby:2.6.0
+EXPOSE 3000
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
+RUN apt install -y nodejs
+COPY . .
+RUN bundle install
+RUN rails db:migrate
+CMD ["rails","s"]
+```
+
+Commands
+```
+$ docker build -t rails-example-project .   
+$ docker run -p 3000:3000 rails-example-project
+```
+
+### Exercise 1.15
+
+Dockerhub link
+
+> https://hub.docker.com/repository/docker/vierimaa/blogapp
+
+### Exercise 1.16
+
+Heroku link
+
+> https://devopsdocker16.herokuapp.com/
+
+### Exercise 1.17
+
+Dockerfile
+```
+FROM python:3.8
+WORKDIR /code
+RUN pip install --no-cache-dir numpy pandas tensorflow matplotlib SciPy
 ```

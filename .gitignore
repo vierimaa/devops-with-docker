@@ -1,2 +1,5 @@
 exercise_*
 commands.txt
+Exercise*/
+.gitignore
+/dockerfiles
