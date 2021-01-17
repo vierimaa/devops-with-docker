@@ -3,3 +3,4 @@ commands.txt
 Exercise*/
 .gitignore
 /dockerfiles
+/scaling-exercise

@@ -152,7 +152,7 @@ CMD [ "npm", "start" ]
 Commands
 ```
 $ docker build -t backend-example .
-$ docker run -v $(pwd)/logs.t:/usr/src/app/logs.txt -p 8000:8000 backend-example
+$ docker run -v $(pwd)/logs.txt:/usr/src/app/logs.txt -p 8000:8000 backend-example
 ```
 
 logs.txt
